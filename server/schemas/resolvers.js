@@ -12,18 +12,36 @@ const resolvers = {
                 
                 return userData
             }
-            throw new AuthenticationError('Not logged in!')
+            throw new AuthenticationError('Not logged in!');
         }
     },
 
     Mutation: {
-        addUser: {};
+        addUser: async (parent, args) => {
+            const user = await User.create(args);
+            const token = signToken(user);
 
-        login {};
+            return { token, user };
+        },
 
-        saveBook: {};
+        login: async (parent, { email, password }) => {
+            const user = await User.findOne({ email });
 
-        removeBook: {};
+            if (!user) {
+                throw new AuthenticationError('Incorrect email...');
+            }
+
+            const CorrectPassword = await user.isCorrectPassword(password);
+
+            if (!CorrectPassword) throw new AuthenticationError('Incorrect password...');
+
+            const token = signToken(user);
+            return { token, user };
+        }
+
+        // saveBook: {};
+
+        // removeBook: {};
     }
 
 };
