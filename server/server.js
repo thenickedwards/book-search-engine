@@ -1,7 +1,7 @@
 const express = require('express');
-// ADDED APOLLO SERVER
+// ADDED APOLLO SERVER REF: Demo 1
 const { ApolloServer } = require("apollo-server-express")
-// ADDED AUTHMIDDLEWARE
+// ADDED AUTHMIDDLEWARE REF: Demo 1
 const { authMiddleWare } = require('./utils/auth')
 const path = require('path');
 const db = require('./config/connection');
