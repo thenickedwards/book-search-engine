@@ -17,8 +17,8 @@ const SignupForm = () => {
   // set state for alert
   const [showAlert, setShowAlert] = useState(false);
 
-  // ADDED REF: 21.3.26
-  const [addUser, { error, data }] = useMutation(ADD_USER);
+  // ADDED REF: 21.3.26 - removed { error, data } from array
+  const [ addUser ] = useMutation(ADD_USER);
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
@@ -35,9 +35,8 @@ const SignupForm = () => {
       event.stopPropagation();
     }
 
-    try {
+    // try {
     // REFACTOR
-    
     //   const response = await createUser(userFormData);
 
     //   if (!response.ok) {
@@ -52,6 +51,7 @@ const SignupForm = () => {
     //   setShowAlert(true);
     // }
     // ADDED REF: 21.3.26
+    try {
       const { data } = await addUser({
         variables: { ...userFormData },
       });
