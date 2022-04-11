@@ -8,8 +8,8 @@ import { gql } from '@apollo/client';
 // [ ] REMOVE_BOOK will execute the removeBook mutation.
 
 export const LOGIN_USER = gql`
-    mutation login($email: String!, $password: String!) {
-        login(email: $email, password: $password) {
+    mutation loginUser($email: String!, $password: String!) {
+        loginUser(email: $email, password: $password) {
             token
             user {
                 _id

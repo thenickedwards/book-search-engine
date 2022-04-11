@@ -16,7 +16,7 @@ const LoginForm = () => {
   const [showAlert, setShowAlert] = useState(false);
 
   // ADDED REF: 21.3.26 - removed { error, data } from array
-  const [ login ] = useMutation(LOGIN_USER);
+  const [ loginUser ] = useMutation(LOGIN_USER);
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
@@ -43,18 +43,18 @@ const LoginForm = () => {
 
     //   const { token, user } = await response.json();
     //   console.log(user);
-    //   Auth.login(token);
+    //   Auth.loginUser(token);
     // } catch (err) {
     //   console.error(err);
     //   setShowAlert(true);
     // }
     // ADDED REF: 21.3.26
     try {
-      const { data } = await login({
+      const { data } = await loginUser({
         variables: { ...userFormData },
     });
 
-      Auth.login(data.login.token);
+      Auth.loginUser(data.login.token);
     } catch (e) {
       console.error(e);
     }
