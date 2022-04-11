@@ -71,14 +71,6 @@ const SearchBooks = () => {
     if (!token) {
       return false;
     }
-
-    // REFACTOR
-    // try {
-    //   const response = await saveBook(bookToSave, token);
-
-    //   if (!response.ok) {
-    //     throw new Error('something went wrong!');
-    //   }
     
     // ADDED
     try {
@@ -91,6 +83,14 @@ const SearchBooks = () => {
     } catch (err) {
       console.error(err);
     }
+    
+    // REFACTOR
+    // try {
+    //   const response = await saveBook(bookToSave, token);
+
+    //   if (!response.ok) {
+    //     throw new Error('something went wrong!');
+    //   }
   };
 
   return (

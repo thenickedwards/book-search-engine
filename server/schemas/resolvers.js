@@ -41,6 +41,7 @@ const resolvers = {
             return { token, user };
         },
 
+        // REF: 21.3.25
         saveBook: async (parent, args, context) => {
             if (context.user) {
                 const updatedUser = User.findOneAndUpdate(
@@ -56,9 +57,19 @@ const resolvers = {
             throw new AuthenticationError('Not logged in!')
         },
 
-        // removeBook: {};
-    }
-
+        // REF: 21.3.25
+        removeBook: async (parent, args, context) => {
+            if (context.user) {
+                const updatedUser = User.findOneAndUpdate(
+                    { _id: context.user._id },
+                    { $pull: { savedBooks: { bookId: args.bookId } } },
+                    { new: true }
+                );
+                return updatedUser
+            }
+            throw new AuthenticationError('Not logged in!')
+        },
+    },
 };
 
 module.exports = resolvers;
