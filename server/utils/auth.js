@@ -29,8 +29,8 @@ module.exports = {
     }
     return req;
 
-    // send to next endpoint
     // REFACTOR
+    // send to next endpoint
     // next();
   },
   signToken: function ({ username, email, _id }) {
