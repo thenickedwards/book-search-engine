@@ -8,11 +8,13 @@ const resolvers = {
         me: async ( parent, args, context ) => {
             if (context.user) {
                 const userData = await User.findOne(
-                    {_id: context.user._id}).select('__v -password');
+                    {_id: context.user._id})
+                    .select('-__v -password')
+                    .populate('books');
                 
                 return userData
             }
-            throw new AuthenticationError('Not logged in!');
+            throw new AuthenticationError('Cannot find user with this id!');
         }
     },
 
@@ -34,12 +36,25 @@ const resolvers = {
             const CorrectPassword = await user.isCorrectPassword(password);
 
             if (!CorrectPassword) throw new AuthenticationError('Incorrect password...');
-
+            
             const token = signToken(user);
             return { token, user };
-        }
+        },
 
-        // saveBook: {};
+        saveBook: async (parent, args, context) => {
+            if (context.user) {
+                const updatedUser = User.findOneAndUpdate(
+                    {_id: HTMLFormControlsCollection.user._id},
+                    { $addToSet: {savedBooks: args.bookData} },
+                    {
+                        new: true,
+                        runValidators: true
+                    }
+                );
+                return updatedUser
+            }
+            throw new AuthenticationError('Not logged in!')
+        },
 
         // removeBook: {};
     }
