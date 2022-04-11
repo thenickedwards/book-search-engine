@@ -10,6 +10,8 @@ const db = require('./config/connection');
 
 // ADDED REF: Mini Project Main
 const { typeDefs, resolvers } = require('./schemas');
+// ADDED Mongoose for Heroku deployment
+
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -39,15 +41,6 @@ if (process.env.NODE_ENV === 'production') {
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, '../client/build/index.html'));
 });
-
-// ADDED: Connecting MongoDB to Heroku
-mongoose.connect(
-  process.env.MONGODB_URI || 'mongodb://localhost:27017/bookSearchEngineDB',
-  {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  },
-);
 
 // ADDED REF: 21.3.26
 // Create a new instance of an Apollo server with the GraphQL schema
