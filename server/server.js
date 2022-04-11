@@ -40,6 +40,15 @@ app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, '../client/build/index.html'));
 });
 
+// ADDED: Connecting MongoDB to Heroku
+mongoose.connect(
+  process.env.MONGODB_URI || 'mongodb://localhost:27017/bookSearchEngineDB',
+  {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  },
+);
+
 // ADDED REF: 21.3.26
 // Create a new instance of an Apollo server with the GraphQL schema
 const startApolloServer = async (typeDefs, resolvers) => {
