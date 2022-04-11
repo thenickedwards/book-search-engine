@@ -44,7 +44,7 @@ const resolvers = {
         saveBook: async (parent, args, context) => {
             if (context.user) {
                 const updatedUser = User.findOneAndUpdate(
-                    {_id: HTMLFormControlsCollection.user._id},
+                    {_id: context.user._id},
                     { $addToSet: {savedBooks: args.bookData} },
                     {
                         new: true,
